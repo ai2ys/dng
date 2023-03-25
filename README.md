@@ -1,4 +1,19 @@
 # dng
+ℹ️: This is a fork of [https://github.com/thorpelawrence/dng](https://github.com/thorpelawrence/dng) adding a dockerfile to the project. Thanks to [Lawrence Thorpe](hhttps://github.com/thorpelawrence).
+
+```shell
+docker docker compose build
+docker compose run --rm dng-converter
+```
+If no other directory gets provided it will mount this workspace. Otherwise provide the directory like the following
+
+```shell
+docker docker compose build
+DATA_DIR=<data directory to be mounted> docker compose run --rm dng-converter
+```
+Inside the container run `dng --help` for further information about the usage.
+
+---
 
 Wrapper around Adobe DNG Converter to use with *nix via wine
 

@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  dng-converter:
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        ADOBE_DNG_CONVERTER: AdobeDNGConverter_x64_15_1_1.exe
+        #AdobeDNGConverter_x64_15_2.exe
+    container_name: dng-converter
+    image: dng-converter/archlinux:15.1.1
+    tty: true
+    #stdin_open: true
+    volumes:
+      # specify data directory or load the workspace directory
+      - ${DATA_DIR:-.}:/data-dir
+    working_dir: /data-dir
