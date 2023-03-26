@@ -1,0 +1,29 @@
+ARG VERSION_ALPINE=3.17
+
+FROM rust:1-alpine${VERSION_ALPINE} AS build
+RUN apk update && apk add \
+        curl \
+        git \
+        innoextract \
+        make \
+        musl-dev \
+    && rm -rf /var/cache/apk/*
+
+WORKDIR /workdir
+
+ARG ADOBE_DNG_CONVERTER=AdobeDNGConverter_x64_15_1_1.exe
+RUN curl -O https://download.adobe.com/pub/adobe/dng/win/${ADOBE_DNG_CONVERTER}
+
+COPY . .
+RUN make && make DESTDIR="${PWD}/pkg"  install
+
+FROM alpine:${VERSION_ALPINE}
+RUN apk update && apk add \
+        wget \
+        wine \
+        bash \
+    && rm -rf /var/cache/apk/*
+
+COPY --from=build /workdir/pkg /
+
+ENTRYPOINT [ "dng" ]

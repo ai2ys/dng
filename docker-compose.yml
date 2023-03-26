@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  dng-converter:
+    build:
+      context: .
+      dockerfile: Dockerfile.${DISTRO}
+      args:
+        ADOBE_DNG_CONVERTER:
+    container_name: dng
+    image: dng-${VERSION_DNG_CONVERTER}_distro-${DISTRO}:0.0.0
+    tty: true
+    volumes:
+      # specify data directory or load the workspace directory
+      - ${DATA_DIR:-.}:/data-dir
+    working_dir: /data-dir

@@ -1,4 +1,6 @@
+# ignore all
 *
+# except
 !/Makefile
 !/build.rs
 !/Cargo.toml
